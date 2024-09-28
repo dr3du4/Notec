@@ -1,9 +1,22 @@
+import LoginPage from "./pages/LoginPage.tsx";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import MainLayout from "./layouts/MainLayout.tsx";
+
 function App() {
-  return (
-    <>
-      <h1 className="text-9xl">Entrypoint</h1>
-    </>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+      </Route>,
+    ),
   );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
