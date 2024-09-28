@@ -7,6 +7,8 @@ import axiosInstance from "../axiosConfig.js";
 import { MouseContext } from "../context/mouseContext.tsx";
 import ShopModal from "../components/ShopModal.tsx";
 import {useContext, useEffect, useState} from "react";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 function RecursiveGrid({ items }: { items: any[] }) {
     const { cursorChangeHandler } = useContext(MouseContext);
