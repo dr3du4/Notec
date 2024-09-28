@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping(value="/api/files",method = { RequestMethod.GET, RequestMethod.POST })
 public class FileUploadController {
 
     @Autowired
