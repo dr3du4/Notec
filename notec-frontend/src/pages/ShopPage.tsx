@@ -2,12 +2,15 @@ import * as React from 'react';
 import NavBar from "../components/NavBar.tsx";
 import ItemCard from "../components/ItemCard.tsx";
 import Grid2 from '@mui/material/Grid2';
-import { Container } from '@mui/material';
+import {Container} from '@mui/material';
+import ShopModal from "../components/ShopModal.tsx";
 
 const items = new Array(8).fill(null);
 
-
 function RecursiveGrid({ items }: { items: any[] }) {
+   const [open, setOpen] = React.useState(false);
+   const modalData = React.useRef<() => JSX.Element>(() => <div></div>);
+
     if (items.length === 0) return null;
 
     const [first, ...rest] = items;
@@ -15,9 +18,12 @@ function RecursiveGrid({ items }: { items: any[] }) {
     return (
         <>
             <Grid2 item xs={12} sm={6} md={4}>
-                <ItemCard />
+                <ItemCard setOpen={setOpen} modalData={modalData}/>
             </Grid2>
             <RecursiveGrid items={rest} />
+            <ShopModal open={open} setOpen={setOpen}>
+               <modalData.current />
+            </ShopModal>
         </>
     );
 }
