@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaTrophy } from "react-icons/fa";
 import Spinner from "../components/Spinner.tsx";
 import { useParams } from "react-router-dom";
+import catAvatar from "/catAvatar.png";
 
 const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,8 @@ const ProfilePage = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
 
   const [password, setPassword] = useState("");
+
+  console.log(avatarUrl);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,76 +67,85 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container m-auto flex bg-gray-200 px-8 py-6">
-      {loading ? (
-        <Spinner loading={loading} />
-      ) : (
-        <>
-          <div className="mr-12">
-            <img
-              src={avatarUrl}
-              alt="User Avatar"
-              className="rounded-full border-4 border-gray-500 w-52 h-52 mb-4"
-            />
-            <h2 className="text-3xl font-bold">{`${firstName} ${lastName}`}</h2>
+    <div className="flex justify-center items-center h-screen">
+      <div className="container m-auto max-w-6xl flex">
+        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
+        <div className="flex flex-col bg-gray-200 px-8 py-8 rounded-r-lg w-1/2">
+          {loading ? (
+            <Spinner loading={loading} />
+          ) : (
+            <>
+              <div className="w-full flex">
+                <img
+                  src={catAvatar}
+                  alt="User Avatar"
+                  className="rounded-full border-4 border-gray-500 w-52 h-52 mb-4 mr-4"
+                />
 
-            <div>
-              <FaTrophy className="text-lg inline mr-1 text-yellow-400" />
-              {rank}
-            </div>
-            <div>
-              <FaStar className="text-lg inline mr-1 text-yellow-400" />
-              {points}
-            </div>
-          </div>
-          <div>
-            <form onSubmit={handleFormSubmit}>
-              <h2 className="text-3xl font-semibold mb-4">Edit your data</h2>
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  className="bg-white rounded-lg p-2 w-full"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <div className="flex flex-col text-md">
+                  <h2 className="text-3xl font-bold mb-4">{`${firstName} ${lastName}`}</h2>
+                  <div className="mb-2">
+                    <FaTrophy className="text-lg inline mr-1 text-yellow-400" />
+                    {rank}
+                  </div>
+                  <div className="mb-2">
+                    <FaStar className="text-lg inline mr-1 text-yellow-400" />
+                    {points}
+                  </div>
+                </div>
               </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="password"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  className="bg-white rounded-lg p-2 w-full"
-                  placeholder="********"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              <div>
+                <form onSubmit={handleFormSubmit}>
+                  <h2 className="text-3xl font-semibold mb-4">
+                    Edit your data
+                  </h2>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="email"
+                      className="block text-gray-700 font-bold mb-2"
+                    >
+                      Email address
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      className="bg-white rounded-lg p-2 w-full"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="password"
+                      className="block text-gray-700 font-bold mb-2"
+                    >
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      className="bg-white rounded-lg p-2 w-full"
+                      placeholder="********"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="bg-custom-purple-dark hover:bg-indigo-600 py-2 px-4 text-white rounded-lg"
+                  >
+                    Update profile
+                  </button>
+                </form>
               </div>
-              <button
-                type="submit"
-                className="bg-custom-purple-dark hover:bg-indigo-600 py-2 px-4 text-white rounded-lg"
-              >
-                Update profile
-              </button>
-            </form>
-          </div>
-        </>
-      )}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
