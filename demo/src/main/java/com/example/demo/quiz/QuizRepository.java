@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
-    @Query("SELECT s FROM Quiz s where s.profileId = ?1")
+    @Query("SELECT q FROM Quiz q where q.profileId = ?1")
     Optional<List<Quiz>> findQuizesByProfile(Long profileId);
+
 }
