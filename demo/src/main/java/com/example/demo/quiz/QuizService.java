@@ -8,10 +8,12 @@ import java.util.Optional;
 
 @Service
 public class QuizService {
+
     private final QuizRepository quizRepository;
 
     @Autowired
     public QuizService(QuizRepository quizRepository) {
+
         this.quizRepository = quizRepository;
     }
 
@@ -24,10 +26,15 @@ public class QuizService {
     }
 
     public void addNewQuiz(Quiz quiz) {
+
         quizRepository.save(quiz);
     }
 
     public Optional<Quiz> getQuiz(Long id) {
+
+        return quizRepository.findById(id);
+    }
+    public Optional<Quiz> getQuizById(Long id) {
         return quizRepository.findById(id);
     }
 }

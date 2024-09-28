@@ -14,7 +14,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
         System.out.println(registerRequest);
         try {
@@ -25,7 +25,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         System.out.println(loginRequest.email);
         System.out.println(loginRequest.password);
