@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(value = "/auth", method = { RequestMethod.GET, RequestMethod.POST })
 public class AuthController {
 
     @Autowired
@@ -24,12 +25,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        System.out.println(loginRequest.email);
+        System.out.println(loginRequest.password);
         Optional<User> user = userService.login(loginRequest);
+        System.out.println(user);
         if (user.isPresent()) {
-            return ResponseEntity.ok("Login successful");
+            Long userId = user.get().getId();
+            LoginResponse response = new LoginResponse("login successfully", userId);
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+            return ResponseEntity.status(401).body(new LoginResponse("niedziala", null));
         }
     }
 }
