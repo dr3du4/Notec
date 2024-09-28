@@ -1,18 +1,12 @@
 package com.example.demo.quiz;
 
-import javax.persistence.*;
-import javax.persistence.GenerationType;
+import jakarta.persistence.*;
+
 
 import com.example.demo.question.Question;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
