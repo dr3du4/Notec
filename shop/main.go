@@ -9,6 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -23,5 +24,11 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/shop", routes.GetShopItemsHandler)
 	r.HandleFunc("/auth/register", routes.RegisterPost)
-	http.ListenAndServe(":8000", r)
+
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:8000"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(r)
+	http.ListenAndServe(":8000", handler)
 }
