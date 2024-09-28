@@ -2,6 +2,8 @@ package com.example.demo.quiz;
 
 import javax.persistence.*;
 import javax.persistence.GenerationType;
+
+import com.example.demo.question.Question;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -34,11 +36,11 @@ public class Quiz {
     private Long id;
     private String title;
     private Long profileId;
-    private List<QuizQuestion> questions;
+    private List<Question> questions;
     private Long correctAnswerIndex;
     public Quiz() {}
 
-    public Quiz(String title, List<QuizQuestion> questions, Long profileId) {
+    public Quiz(String title, List<Question> questions, Long profileId) {
         this.title = title;
         this.questions = questions;
         this.profileId = profileId;
