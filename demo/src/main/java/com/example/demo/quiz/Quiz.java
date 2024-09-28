@@ -1,18 +1,18 @@
 package com.example.demo.quiz;
 
-import javax.persistence.*;
-import javax.persistence.GenerationType;
+import jakarta.persistence.*;
+import jakarta.persistence.GenerationType;
 
 import com.example.demo.question.Question;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
@@ -36,6 +36,8 @@ public class Quiz {
     private Long id;
     private String title;
     private Long profileId;
+
+    @OneToMany
     private List<Question> questions;
     private Long correctAnswerIndex;
     public Quiz() {}
