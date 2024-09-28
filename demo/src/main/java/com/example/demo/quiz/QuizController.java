@@ -1,7 +1,5 @@
 package com.example.demo.quiz;
 
-import com.example.demo.student.Student;
-import com.example.demo.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +20,18 @@ public class QuizController {
         this.quizService =  quizService;
     }
 
-    @GetMapping
     public Optional<List<Quiz>> getProfileQuizes(@RequestParam(required = false) Long profileId) {
         return quizService.getProfileQuizes(profileId);
+    }
+
+    @GetMapping("/all")
+    public Optional<List<Quiz>> getAllQuizes() {
+        return Optional.ofNullable(quizService.getQuizes());
+    }
+
+    @GetMapping("/quiz")
+    public Optional<Quiz> getQuiz(@RequestParam Long quizId) {
+        return quizService.getQuiz(quizId);
     }
 }
 
