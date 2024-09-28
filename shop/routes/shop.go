@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"io/ioutil"
+	"net/http"
 )
 
 type Frame struct {
@@ -15,6 +16,11 @@ type Icon struct {
 	Id    string `json:"id"`
 	Name  string `json:"name"`
 	Price int    `json:"price"`
+}
+
+type responseGetShopItems struct {
+	Frames []Frame
+	Icon   []Icon
 }
 
 func getFrames() []Frame {
@@ -31,6 +37,9 @@ func getIcons() []Icon {
 	return icons
 }
 
-func GetShopItemsHandler() {
-
+func GetShopItemsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
+	response := responseGetShopItems{getFrames(), getIcons()}
+	jsonValue, _ := json.Marshal(response)
+	w.Write(jsonValue)
 }
