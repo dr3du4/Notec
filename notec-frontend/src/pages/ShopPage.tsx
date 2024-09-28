@@ -6,9 +6,17 @@ import { Container } from '@mui/material';
 import axiosInstance from "../axiosConfig.js";
 import { MouseContext } from "../context/mouseContext.tsx";
 import {useContext, useEffect, useState} from "react";
+import ShopModal from "../components/ShopModal.tsx";
 
 function RecursiveGrid({ items }: { items: any[] }) {
     const { cursorChangeHandler } = useContext(MouseContext);
+
+
+const items = new Array(8).fill(null);
+
+function RecursiveGrid({ items }: { items: any[] }) {
+   const [open, setOpen] = React.useState(false);
+   const modalData = React.useRef<() => JSX.Element>(() => <div></div>);
 
     if (items.length === 0) return null;
 
@@ -32,9 +40,14 @@ function RecursiveGrid({ items }: { items: any[] }) {
                     image={`/${first.name}.png`}
                     price={first.price}
                     onClick={() => onClickItem(first.name)}
+                    setOpen={setOpen}
+                    modalData={modalData}
                 />
-            </Grid2>
+        
             <RecursiveGrid items={rest} />
+            <ShopModal open={open} setOpen={setOpen}>
+               <modalData.current />
+            </ShopModal>
         </>
     );
 }
