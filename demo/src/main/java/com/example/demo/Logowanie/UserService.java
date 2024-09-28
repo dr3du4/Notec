@@ -1,0 +1,35 @@
+package com.example.demo.Logowanie;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User register(RegisterRequest registerRequest) {
+        User user = new User();
+        user.setFirstName(registerRequest.getFirstName());
+        user.setLastName(registerRequest.getLastName());
+        user.setEmail(registerRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPoints(0); // Domyślnie 0 punktów
+        user.setRank("beginner"); // Domyślna ranga
+        return userRepository.save(user);
+    }
+
+    public Optional<User> login(LoginRequest loginRequest) {
+        Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
+        if (user.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
+            return user;
+        }
+        return Optional.empty();
+    }
+}
