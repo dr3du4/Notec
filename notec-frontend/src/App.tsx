@@ -12,8 +12,11 @@ import HomePage from "./pages/HomePage.tsx";
 import ShopPage from "./pages/ShopPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import QuizPage from "./pages/QuizPage.tsx";
-
+import {useContext} from "react";
+import {MouseContext} from "./context/mouseContext.tsx";
 function App() {
+    const {cursorType, cursorChangeHandler}  = useContext(MouseContext)
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
@@ -28,7 +31,7 @@ function App() {
     ),
   );
 
-  return <RouterProvider router={router} />;
+    return <div className={cursorType}><RouterProvider router={router} /></div>;
 }
 
 export default App;

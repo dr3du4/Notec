@@ -26,7 +26,7 @@ func main() {
 	r.HandleFunc("/auth/register", routes.RegisterPost)
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8000"},
+		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	})
 	handler := c.Handler(r)

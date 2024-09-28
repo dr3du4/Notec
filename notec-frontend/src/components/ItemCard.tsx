@@ -23,25 +23,29 @@ export default function ItemCard({setOpen, modalData}: {setOpen: (e:boolean) => 
         setOpen(true)
     }
 
+interface ItemCardProps {
+    title: string;
+    image: string;
+    price: number;
+    onClick: ()=>void;
+}
+
+export default function ItemCard({ title, image, price,onClick }: ItemCardProps) {
     return (
-        <Card sx={{ maxWidth: 345 }} onClick={clickHandler}>
+        <Card sx={{ maxWidth: 300, minWidth: 300, minHeight: 450, maxHeight: 450 }} onClick={clickHandler}>
             <CardActionArea>
                 <CardMedia
                     component="img"
                     height="140"
-                    image="/lemur.png"
-                    alt="green iguana"
+                    image={image}
+                    alt={title}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Lizard
+                        {title}
                     </Typography>
                     <Typography>
-                        Price: 100 points
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        Price: {price} points
                     </Typography>
                 </CardContent>
             </CardActionArea>

@@ -12,7 +12,7 @@ function QuizPage() {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await axiosInstance.get("http://localhost:8000/quiz");
+                const response = await axiosInstance.get("/quiz");
                 console.log(response.data);
                 setQuiz(response.data);
                 setLoading(false);
