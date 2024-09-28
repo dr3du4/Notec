@@ -20,9 +20,10 @@ public class UserService {
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
         user.setEmail(registerRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPassword(registerRequest.getPassword());
         user.setPoints(0); // Domyślnie 0 punktów
         user.setRank("beginner"); // Domyślna ranga
+        System.out.println(user);
         return userRepository.save(user);
     }
 
@@ -38,5 +39,13 @@ public class UserService {
             return user;
         }
         return Optional.empty();
+    }
+    public User getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("User with ID " + id + " not found");
+        }
     }
 }

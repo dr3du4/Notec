@@ -20,10 +20,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/auth/register").hasAnyRole("admin", "user")
                         .requestMatchers("/auth/login").hasAnyRole("admin", "user")
+                        .requestMatchers("/auth//getUser").hasAnyRole("admin", "user")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/auth/login")
+                        .loginPage("/auth/register")
+                        .loginPage("/auth//getUser")
                         .permitAll()
                 )
                 .logout(logout -> logout
