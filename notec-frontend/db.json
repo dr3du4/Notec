@@ -1,0 +1,82 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "firstName": "Jan",
+      "lastName": "Testowy",
+      "email": "jan@test.com",
+      "password": "testPass",
+      "points": 146,
+      "rank": "diamond",
+      "avatarUrl": "test.png",
+      "cursors": ["classic"],
+      "frames": ["classic"],
+      "currentCursor": "classic",
+      "currentFrame": "classic"
+    },
+    {
+      "id": 2,
+      "firstName": "Krzys",
+      "lastName": "Testowy2",
+      "email": "krzys@test.com",
+      "password": "testPass",
+      "points": 25,
+      "rank": "silver",
+      "avatarUrl": "test.png",
+      "cursors": ["classic"],
+      "frames": ["classic"],
+      "currentCursor": "classic",
+      "currentFrame": "classic"
+    }
+  ],
+  "quiz": {
+    "id": 1,
+    "title": "Quiz testowy",
+    "questions": [
+      {
+        "title": "Pytanie testowe 1",
+        "options": [
+          {
+            "option": "a",
+            "correct": true
+          },
+          {
+            "option": "b",
+            "correct": false
+          },
+          {
+            "option": "c",
+            "correct": false
+          },
+          {
+            "option": "d",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "title": "Pytanie testowe 2",
+        "options": [
+          {
+            "option": "a",
+            "correct": false
+          },
+          {
+            "option": "b",
+            "correct": false
+          },
+          {
+            "option": "c",
+            "correct": true
+          },
+          {
+            "option": "d",
+            "correct": false
+          }
+        ]
+      }
+    ],
+    "userId": 1,
+    "tags": ["it", "biology"]
+  }
+}
