@@ -20,7 +20,6 @@ public class QuizController {
         this.quizService =  quizService;
     }
 
-    @GetMapping("/user")
     public Optional<List<Quiz>> getProfileQuizes(@RequestParam(required = false) Long profileId) {
         return quizService.getProfileQuizes(profileId);
     }
