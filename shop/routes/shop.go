@@ -2,13 +2,14 @@ package routes
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
+	"os"
 )
 
 type Frame struct {
 	Id      string `json:"id"`
-	Context string `jsorn:"context"`
+	Context string `json:"context"`
 	Price   int    `json:"price"`
 }
 
@@ -18,28 +19,69 @@ type Icon struct {
 	Price int    `json:"price"`
 }
 
-type responseGetShopItems struct {
-	Frames []Frame
-	Icon   []Icon
+type ResponseGetShopItems struct {
+	Frames []Frame `json:"frames"`
+	Icons  []Icon  `json:"icons"`
 }
 
 func getFrames() []Frame {
-	byteValue, _ := ioutil.ReadFile("./data/icons.json")
+	file, err := os.Open("./data/frames.json")
+	if err != nil {
+		// Handle the error appropriately
+		return []Frame{}
+	}
+	defer file.Close()
+
+	byteValue, err := io.ReadAll(file)
+	if err != nil {
+		// Handle the error appropriately
+		return []Frame{}
+	}
+
 	var frames []Frame
-	json.Unmarshal(byteValue, &frames)
+	if err := json.Unmarshal(byteValue, &frames); err != nil {
+		// Handle the error appropriately
+		return []Frame{}
+	}
 	return frames
 }
 
 func getIcons() []Icon {
-	byteValue, _ := ioutil.ReadFile("./data/frames.json")
+	file, err := os.Open("./data/icons.json")
+	if err != nil {
+		// Handle the error appropriately
+		return []Icon{}
+	}
+	defer file.Close()
+
+	byteValue, err := io.ReadAll(file)
+	if err != nil {
+		// Handle the error appropriately
+		return []Icon{}
+	}
+
 	var icons []Icon
-	json.Unmarshal(byteValue, icons)
+	if err := json.Unmarshal(byteValue, &icons); err != nil {
+		// Handle the error appropriately
+		return []Icon{}
+	}
 	return icons
 }
 
 func GetShopItemsHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json")
-	response := responseGetShopItems{getFrames(), getIcons()}
-	jsonValue, _ := json.Marshal(response)
+	w.Header().Set("Content-Type", "application/json")
+
+	response := ResponseGetShopItems{
+		Frames: getFrames(),
+		Icons:  getIcons(),
+	}
+
+	jsonValue, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "Error generating JSON response", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 	w.Write(jsonValue)
 }

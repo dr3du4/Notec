@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"shopi/config"
+	"shopi/routes"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -15,10 +16,12 @@ func main() {
 	config.Cfg.SetUrl(os.Getenv("DB_CONNECTION"))
 	connected := config.Cfg.ConnectToDb()
 	if !connected {
-		fmt.Println("Wasssssssssssssssssssssss")
+		fmt.Println("Not connected to db")
 	}
 	config.Cfg.InitTables()
 
 	r := mux.NewRouter()
+	r.HandleFunc("/shop", routes.GetShopItemsHandler)
+	r.HandleFunc("/auth/register", routes.RegisterPost)
 	http.ListenAndServe(":8000", r)
 }
