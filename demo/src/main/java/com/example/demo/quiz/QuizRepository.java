@@ -12,4 +12,5 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     @Query("SELECT q FROM Quiz q where q.profileId = ?1")
     Optional<List<Quiz>> findQuizesByProfile(Long profileId);
+
 }

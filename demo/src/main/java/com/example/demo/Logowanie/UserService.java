@@ -1,6 +1,7 @@
 package com.example.demo.Logowanie;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
@@ -26,8 +27,14 @@ public class UserService {
     }
 
     public Optional<User> login(LoginRequest loginRequest) {
+        System.out.println(loginRequest.email);
+        System.out.println(loginRequest.password);
         Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
-        if (user.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
+        System.out.println(user);
+        System.out.println(user.get().getPassword());
+        System.out.println(loginRequest.getPassword());
+
+        if (user.isPresent() && (user.get().getPassword().equals(loginRequest.getPassword()))) {
             return user;
         }
         return Optional.empty();

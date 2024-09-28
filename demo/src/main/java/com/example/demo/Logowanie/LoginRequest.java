@@ -1,11 +1,13 @@
 package com.example.demo.Logowanie;
 
 public class LoginRequest {
-        private String email;
-        private String password;
+        public String email;
+        public String password;
 
 
-        public LoginRequest(String email, String password) {
+        public LoginRequest(String email, String password)
+        {       System.out.println(email);
+                System.out.println(password);
                 this.email = email;
                 this.password = password;
         }
