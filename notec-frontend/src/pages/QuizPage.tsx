@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavBar from "../components/NavBar.tsx";
-import axiosInstance from "../axiosConfig.js";  
+import axiosInstance from "../axiosConfig.js";
 import QuestionCard from "../components/QuestionCard.tsx";
 import {useEffect, useState} from "react";
 
@@ -38,12 +38,16 @@ function QuizPage() {
     }
 
     return (
-        <>
-            <NavBar />
-            <div className="quiz-container" style={{ padding: '2rem' }}>
-                <h2>{quiz.title}</h2>
-                <p>Tags: {quiz.tags.join(', ')}</p>
-                <div className="questions-list">
+        <div className="flex flex-col h-screen">
+            <div className="mb-4">
+                <NavBar />
+            </div>
+
+            <div className="flex-grow overflow-y-auto">
+                <div className="flex flex-col items-center space-y-4 p-4">
+                    <h2>{quiz.title}</h2>
+                    <p>Tags: {quiz.tags.join(', ')}</p>
+
                     {quiz.questions.map((question, index) => (
                         <QuestionCard
                             key={index}
@@ -53,7 +57,7 @@ function QuizPage() {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
