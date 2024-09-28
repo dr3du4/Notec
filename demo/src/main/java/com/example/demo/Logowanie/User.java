@@ -1,172 +1,195 @@
 package com.example.demo.Logowanie;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "profiles")
 public class User {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String firstName;
+    private String firstName;
 
-        private String lastName;
+    private String lastName;
 
-        private int points;
+    private int points;
 
-        private String rank;
+    private String rank;
 
-        private String imageUrl;
+    private String imageUrl;
 
-        private String email;
+    private String email;
 
-        private String password;
+    private String password;
 
-        @ElementCollection
-        @CollectionTable(name = "user_cursors", joinColumns = @JoinColumn(name = "user_id"))
-        @Column(name = "cursor")
-        private List<String> cursors;
+    @ElementCollection
+    private List<String> cursors;
 
-        @ElementCollection
-        @CollectionTable(name = "user_frames", joinColumns = @JoinColumn(name = "user_id"))
-        @Column(name = "frame")
-        private List<String> frames;
+    @ElementCollection
+    private List<String> frames;
 
-       // Konstruktor z argumentami
-        public User(String firstName, String lastName, int points, String rank, String imageUrl, String email, String password, List<String> cursors, List<String> frames) {
-                this.firstName = firstName;
-                this.lastName = lastName;
-                this.points = points;
-                this.rank = rank;
-                this.imageUrl = imageUrl;
-                this.email = email;
-                this.password = password;
-                this.cursors = cursors;
-                this.frames = frames;
-        }
+    private String currentFrame;  // Current frame selected by the user
 
-        public User() {
+    private String currentCursor;  // Current cursor selected by the user
 
-        }
+    // Constructor with arguments
+    public User(String firstName, String lastName, int points, String rank, String imageUrl, String email, String password, List<String> cursors, List<String> frames, String currentFrame, String currentCursor) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.points = points;
+        this.rank = rank;
+        this.imageUrl = imageUrl;
+        this.email = email;
+        this.password = password;
+        this.cursors = cursors;
+        this.frames = frames;
+        this.currentFrame = currentFrame;
+        this.currentCursor = currentCursor;
+    }
 
-        // Getter dla pola id
-        public Long getId() {
-                return id;
-        }
+    // No-argument constructor
+    public User() {}
 
-        // Setter dla pola id
-        public void setId(Long id) {
-                this.id = id;
-        }
+    // Getter for id
+    public Long getId() {
+        return id;
+    }
 
-        // Getter dla pola firstName
-        public String getFirstName() {
-                return firstName;
-        }
+    // Setter for id
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        // Setter dla pola firstName
-        public void setFirstName(String firstName) {
-                this.firstName = firstName;
-        }
+    // Getter for firstName
+    public String getFirstName() {
+        return firstName;
+    }
 
-        // Getter dla pola lastName
-        public String getLastName() {
-                return lastName;
-        }
+    // Setter for firstName
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-        // Setter dla pola lastName
-        public void setLastName(String lastName) {
-                this.lastName = lastName;
-        }
+    // Getter for lastName
+    public String getLastName() {
+        return lastName;
+    }
 
-        // Getter dla pola points
-        public int getPoints() {
-                return points;
-        }
+    // Setter for lastName
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-        // Setter dla pola points
-        public void setPoints(int points) {
-                this.points = points;
-        }
+    // Getter for points
+    public int getPoints() {
+        return points;
+    }
 
-        // Getter dla pola rank
-        public String getRank() {
-                return rank;
-        }
+    // Setter for points
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
-        // Setter dla pola rank
-        public void setRank(String rank) {
-                this.rank = rank;
-        }
+    // Getter for rank
+    public String getRank() {
+        return rank;
+    }
 
-        // Getter dla pola imageUrl
-        public String getImageUrl() {
-                return imageUrl;
-        }
+    // Setter for rank
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
-        // Setter dla pola imageUrl
-        public void setImageUrl(String imageUrl) {
-                this.imageUrl = imageUrl;
-        }
+    // Getter for imageUrl
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-        // Getter dla pola email
-        public String getEmail() {
-                return email;
-        }
+    // Setter for imageUrl
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-        // Setter dla pola email
-        public void setEmail(String email) {
-                this.email = email;
-        }
+    // Getter for email
+    public String getEmail() {
+        return email;
+    }
 
-        // Getter dla pola password
-        public String getPassword() {
-                return password;
-        }
+    // Setter for email
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-        // Setter dla pola password
-        public void setPassword(String password) {
-                this.password = password;
-        }
+    // Getter for password
+    public String getPassword() {
+        return password;
+    }
 
-        // Getter dla pola cursors
-        public List<String> getCursors() {
-                return cursors;
-        }
+    // Setter for password
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        // Setter dla pola cursors
-        public void setCursors(List<String> cursors) {
-                this.cursors = cursors;
-        }
+    // Getter for cursors
+    public List<String> getCursors() {
+        return cursors;
+    }
 
-        // Getter dla pola frames
-        public List<String> getFrames() {
-                return frames;
-        }
+    // Setter for cursors
+    public void setCursors(List<String> cursors) {
+        this.cursors = cursors;
+    }
 
-        // Setter dla pola frames
-        public void setFrames(List<String> frames) {
-                this.frames = frames;
-        }
+    // Getter for frames
+    public List<String> getFrames() {
+        return frames;
+    }
 
-        // Opcjonalnie: Metoda toString (do debugowania)
-        @Override
-        public String toString() {
-                return "User{" +
-                        "id=" + id +
-                        ", firstName='" + firstName + '\'' +
-                        ", lastName='" + lastName + '\'' +
-                        ", points=" + points +
-                        ", rank='" + rank + '\'' +
-                        ", imageUrl='" + imageUrl + '\'' +
-                        ", email='" + email + '\'' +
-                        ", password='" + password + '\'' + // Hasło może być poufne, rozważ usunięcie z toString
-                        ", cursors=" + cursors +
-                        ", frames=" + frames +
-                        '}';
-        }
+    // Setter for frames
+    public void setFrames(List<String> frames) {
+        this.frames = frames;
+    }
+
+    // Getter for currentFrame
+    public String getCurrentFrame() {
+        return currentFrame;
+    }
+
+    // Setter for currentFrame
+    public void setCurrentFrame(String currentFrame) {
+        this.currentFrame = currentFrame;
+    }
+
+    // Getter for currentCursor
+    public String getCurrentCursor() {
+        return currentCursor;
+    }
+
+    // Setter for currentCursor
+    public void setCurrentCursor(String currentCursor) {
+        this.currentCursor = currentCursor;
+    }
+
+    // Optional: toString method for debugging
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", points=" + points +
+                ", rank='" + rank + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", email='" + email + '\'' +
+                // Consider removing password for security reasons
+                ", password='" + password + '\'' +
+                ", cursors=" + cursors +
+                ", frames=" + frames +
+                ", currentFrame='" + currentFrame + '\'' +
+                ", currentCursor='" + currentCursor + '\'' +
+                '}';
+    }
 }
