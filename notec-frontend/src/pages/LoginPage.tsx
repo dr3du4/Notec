@@ -12,7 +12,7 @@ const LoginPage = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="container m-auto max-w-4xl flex">
-        <div className="float w-1/2 bg-[#72369D] rounded-l-lg"></div>
+        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
         <div className="bg-gray-200 px-8 py-32 w-1/2 rounded-r-lg">
           <form onSubmit={handleSubmit} className="flex flex-col">
             <h2 className="text-3xl font-semibold mb-4">Login</h2>
@@ -54,7 +54,7 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-              className="bg-[#72369D] hover:bg-indigo-600 py-2 px-4 text-white rounded-lg"
+              className="bg-custom-purple-dark hover:bg-indigo-600 py-2 px-4 text-white rounded-lg"
             >
               Login
             </button>
