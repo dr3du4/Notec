@@ -4,33 +4,34 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-import {MutableRefObject} from "react";
+import { MutableRefObject } from "react";
 import Button from "@mui/material/Button";
-
-
-export default function ItemCard({setOpen, modalData}: {setOpen: (e:boolean) => void, modalData:  MutableRefObject<() => JSX.Element>}) {
-    const clickHandler = () => {
-        modalData.current = () => <>
-            <Typography id="modal-modal-title" variant="body2" sx={{ color: 'text.secondary' }}>
-               Lizards are a widespread group of squamate reptiles, with over 6,000
-               species, ranging across all continents except Antarctica
-            </Typography>
-
-            <div className={"w-full flex justify-center"}>
-               <Button>Buy</Button>
-            </div>
-        </>
-        setOpen(true)
-    }
 
 interface ItemCardProps {
     title: string;
     image: string;
     price: number;
-    onClick: ()=>void;
+    setOpen: (e: boolean) => void;
+    modalData: MutableRefObject<() => JSX.Element>;
 }
 
-export default function ItemCard({ title, image, price,onClick }: ItemCardProps) {
+export default function ItemCard({ title, image, price, setOpen, modalData }: ItemCardProps) {
+    const clickHandler = () => {
+        // Zaktualizowanie zawartości modalData po kliknięciu
+        modalData.current = () => (
+            <>
+                <Typography id="modal-modal-title" variant="body2" sx={{ color: 'text.secondary' }}>
+                    Lizards are a widespread group of squamate reptiles, with over 6,000
+                    species, ranging across all continents except Antarctica
+                </Typography>
+                <div className="w-full flex justify-center">
+                    <Button>Buy</Button>
+                </div>
+            </>
+        );
+        setOpen(true); // Otwieramy modal
+    };
+
     return (
         <Card sx={{ maxWidth: 300, minWidth: 300, minHeight: 450, maxHeight: 450 }} onClick={clickHandler}>
             <CardActionArea>
@@ -49,8 +50,6 @@ export default function ItemCard({ title, image, price,onClick }: ItemCardProps)
                     </Typography>
                 </CardContent>
             </CardActionArea>
-
-
         </Card>
     );
 }

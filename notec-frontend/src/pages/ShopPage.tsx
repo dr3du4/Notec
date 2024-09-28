@@ -1,29 +1,39 @@
 import * as React from 'react';
-import NavBar from "../components/NavBar.tsx";
-import ItemCard from "../components/ItemCard.tsx";
 import Grid2 from '@mui/material/Grid2';
 import { Container } from '@mui/material';
+import NavBar from "../components/NavBar.tsx";
+import ItemCard from "../components/ItemCard.tsx";
 import axiosInstance from "../axiosConfig.js";
 import { MouseContext } from "../context/mouseContext.tsx";
-import {useContext, useEffect, useState} from "react";
 import ShopModal from "../components/ShopModal.tsx";
+import {useContext, useEffect, useState} from "react";
 
 function RecursiveGrid({ items }: { items: any[] }) {
     const { cursorChangeHandler } = useContext(MouseContext);
-
-
-const items = new Array(8).fill(null);
-
-function RecursiveGrid({ items }: { items: any[] }) {
-   const [open, setOpen] = React.useState(false);
-   const modalData = React.useRef<() => JSX.Element>(() => <div></div>);
+    const [open, setOpen] = useState(false); // Zarządzanie stanem modala
+    const modalData = React.useRef<() => JSX.Element>(() => <div></div>); // Referencja do danych modala
 
     if (items.length === 0) return null;
 
     const [first, ...rest] = items;
 
-    const onClickItem = (name: string) => {
+    const onClickItem = (name: string, price: number) => {
         cursorChangeHandler(name);
+        // Ustawienie zawartości modala
+        modalData.current = () => (
+            <>
+                <Typography id="modal-modal-title" variant="h6">
+                    {name}
+                </Typography>
+                <Typography id="modal-modal-description" variant="body2" sx={{ color: 'text.secondary' }}>
+                    Price: {price} points
+                </Typography>
+                <div className="w-full flex justify-center">
+                    <Button>Buy</Button>
+                </div>
+            </>
+        );
+        setOpen(true); // Otworzenie modala
     };
 
     return (
@@ -39,14 +49,14 @@ function RecursiveGrid({ items }: { items: any[] }) {
                     title={first.context || first.name}
                     image={`/${first.name}.png`}
                     price={first.price}
-                    onClick={() => onClickItem(first.name)}
+                    onClick={() => onClickItem(first.name, first.price)} // Przekazanie danych do modala
                     setOpen={setOpen}
                     modalData={modalData}
                 />
-        
+            </Grid2>
             <RecursiveGrid items={rest} />
             <ShopModal open={open} setOpen={setOpen}>
-               <modalData.current />
+                <modalData.current />
             </ShopModal>
         </>
     );
