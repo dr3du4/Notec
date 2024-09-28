@@ -8,6 +8,7 @@ import {
 import MainLayout from "./layouts/MainLayout.tsx";
 import CreateQuiz from "./pages/CreateQuiz.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import ShopPage from "./pages/ShopPage.tsx";
 
 function App() {
   const router = createBrowserRouter(
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/home" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
       </Route>
     ),
   );
