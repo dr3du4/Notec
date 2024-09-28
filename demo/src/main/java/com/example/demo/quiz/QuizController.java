@@ -26,6 +26,12 @@ public class QuizController {
     public Optional<List<Quiz>> getProfileQuizes(@RequestParam(required = false) Long profileId) {
         return quizService.getProfileQuizes(profileId);
     }
+
+    @GetMapping("/all")
+    public Optional<List<Quiz>> getAllQuizes() {
+        return Optional.ofNullable(quizService.getQuizes());
+    }
+
 }
 
 
