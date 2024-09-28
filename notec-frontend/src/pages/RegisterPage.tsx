@@ -18,7 +18,7 @@ const RegisterPage = () => {
             <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
             <div className="bg-gray-200 px-8 py-32 w-1/2 rounded-r-lg">
                <form onSubmit={handleSubmit} className="flex flex-col">
-                  <h2 className="text-3xl font-semibold mb-4">Login</h2>
+                  <h2 className="text-3xl font-semibold mb-4">Register</h2>
                   <div className="mb-4">
                      <label
                         htmlFor="email"
