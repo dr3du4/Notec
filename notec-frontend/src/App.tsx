@@ -14,6 +14,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/home" element={<HomePage />} />
       </Route>
