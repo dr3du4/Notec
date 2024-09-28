@@ -1,0 +1,17 @@
+[
+    {
+  "id": "1",
+  "context": "default",
+  "price": 0
+    },
+    {
+  "id": "2",
+  "context": "unusual",
+  "price": 1000
+    },
+    {
+  "id": "3",
+  "context": "legendary",
+  "price": 10000
+    }
+]

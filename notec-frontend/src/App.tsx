@@ -11,6 +11,7 @@ import CreateQuiz from "./pages/CreateQuiz.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import ShopPage from "./pages/ShopPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
+import QuizPage from "./pages/QuizPage.tsx";
 
 function App() {
   const router = createBrowserRouter(
@@ -22,6 +23,7 @@ function App() {
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
+          <Route path="/quiz" element={<QuizPage />} />
       </Route>,
     ),
   );

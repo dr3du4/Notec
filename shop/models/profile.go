@@ -14,3 +14,25 @@ var CreateProfileTableQuery string = `CREATE TABLE IF NOT EXISTS profiles (
     current_cursor VARCHAR(255) NOT NULL DEFAULT 'default',
     current_frame VARCHAR(255) NOT NULL DEFAULT 'default'
 );`
+
+var InsertProfileTableQuery string = `
+INSERT INTO profiles (
+    name, surname, points, rank, image_url, cursors, frames, email, password, current_cursor, current_frame
+) VALUES (
+    '%s', '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
+); `
+
+type Profile struct {
+	id             string
+	name           string
+	surname        string
+	points         int
+	rank           string
+	imageUrl       string
+	cursors        []string
+	frames         []string
+	email          string
+	password       string
+	current_cursor string
+	current_frame  string
+}
