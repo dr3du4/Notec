@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -9,12 +9,23 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(email, password);
-    navigate('/home')
+    navigate("/home");
   };
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="container m-auto max-w-4xl flex">
+      <div className="container m-auto max-w-4xl flex relative">
+        <div className="absolute top-5 right-5">
+          <p>
+            Don't have an account?
+            <Link
+              to="/register"
+              className="ml-2 text-custom-purple-dark font-bold"
+            >
+              Register
+            </Link>
+          </p>
+        </div>
         <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
         <div className="bg-gray-200 px-8 py-32 w-1/2 rounded-r-lg">
           <form onSubmit={handleSubmit} className="flex flex-col">
