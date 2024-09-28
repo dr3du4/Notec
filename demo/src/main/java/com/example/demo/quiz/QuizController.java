@@ -1,7 +1,5 @@
 package com.example.demo.quiz;
 
-import com.example.demo.student.Student;
-import com.example.demo.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
