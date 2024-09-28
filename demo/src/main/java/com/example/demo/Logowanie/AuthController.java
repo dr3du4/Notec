@@ -16,6 +16,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+        System.out.println(registerRequest);
         try {
             userService.register(registerRequest);
             return ResponseEntity.ok("Registration successful");
@@ -35,7 +36,16 @@ public class AuthController {
             LoginResponse response = new LoginResponse("login successfully", userId);
             return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body(new LoginResponse("niedziala", null));
+            return ResponseEntity.status(401).body(new LoginResponse("niDDASsSDADer", null));
+        }
+    }
+    @GetMapping("/getUser")
+    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+        try {
+            User user = userService.getUserById(id);
+            return ResponseEntity.ok(user); // Zwraca kod 200 (OK) oraz dane użytkownika
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build(); // Zwraca kod 404 (Not Found), gdy użytkownik nie istnieje
         }
     }
 }
