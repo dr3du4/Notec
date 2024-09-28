@@ -15,7 +15,7 @@ interface ItemCardProps {
     modalData: MutableRefObject<() => JSX.Element>;
 }
 
-export default function ItemCard({ title, image, price, setOpen, modalData }: ItemCardProps) {
+export default function ItemCard({ title, image, price, setOpen, modalData, cursorChangeHandler }: ItemCardProps) {
     const clickHandler = () => {
         // Zaktualizowanie zawartości modalData po kliknięciu
         modalData.current = () => (
@@ -33,8 +33,8 @@ export default function ItemCard({ title, image, price, setOpen, modalData }: It
     };
 
     return (
-        <Card sx={{ maxWidth: 300, minWidth: 300, minHeight: 450, maxHeight: 450 }} onClick={clickHandler}>
-            <CardActionArea>
+        <Card sx={{ maxWidth: 300, minWidth: 300, minHeight: 500, maxHeight: 500 }} >
+            <CardActionArea onClick={clickHandler}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -50,6 +50,9 @@ export default function ItemCard({ title, image, price, setOpen, modalData }: It
                     </Typography>
                 </CardContent>
             </CardActionArea>
+            <Button onClick={cursorChangeHandler}>
+                Try
+            </Button>
         </Card>
     );
 }

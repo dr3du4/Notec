@@ -54,6 +54,7 @@ function RecursiveGrid({ items }: { items: any[] }) {
                     onClick={() => onClickItem(first.name, first.price)} // Przekazanie danych do modala
                     setOpen={setOpen}
                     modalData={modalData}
+                    cursorChangeHandler={()=>cursorChangeHandler(first.name)}
                 />
             </Grid2>
             <RecursiveGrid items={rest} />
