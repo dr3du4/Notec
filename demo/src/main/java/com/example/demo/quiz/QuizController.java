@@ -23,12 +23,6 @@ public class QuizController {
     }
 
     @GetMapping
-    public List<Quiz> getAllQuizes()
-    {
-        return quizService.getQuizes();
-    }
-
-    @GetMapping
     public Optional<List<Quiz>> getProfileQuizes(@RequestParam(required = false) Long profileId) {
         return quizService.getProfileQuizes(profileId);
     }
