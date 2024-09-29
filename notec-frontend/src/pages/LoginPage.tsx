@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
-    navigate("/home");
+
+    await axios
+      .post("http://localhost:8080/auth/login", { email, password })
+      .then((res) => {
+        localStorage.setItem("userId", res.data.userId);
+        toast.success("Logged in successfully!");
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log("Request failed: ", err);
+        toast.error("Something went wrong!");
+      });
   };
 
   return (

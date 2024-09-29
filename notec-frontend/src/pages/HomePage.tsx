@@ -4,11 +4,40 @@ import QuizCard from "../components/QuizCard.tsx";
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axiosInstance from "../axiosConfig.js";
 
 
 function HomePage() {
 
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [quizTags, setQuizTags] = useState([]);
+
+    useEffect(() => {
+        const fetchQuizTitle = async () => {
+            try {
+                const response = await axiosInstance.get("/title");
+                setTitle(response.data);
+
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        const fetchQuizTags = async () => {
+            try {
+                const response = await axiosInstance.get("/tags");
+                setQuizTags(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+
+        fetchQuizTags();
+        fetchQuizTitle();
+    }, []);
 
     const handleAddQuiz = () => {
         navigate('/create-quiz')
@@ -21,16 +50,7 @@ function HomePage() {
             </div>
             <div className="flex-grow overflow-y-auto">
                 <div className="flex flex-col items-center space-y-4 p-4">
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
+                    <QuizCard title={title} tags={quizTags}/>
                 </div>
             </div>
 

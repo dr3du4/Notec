@@ -5,15 +5,18 @@ import QuestionCard from "../components/QuestionCard.tsx";
 import {useEffect, useState} from "react";
 
 function QuizPage() {
-    const [quiz, setQuiz] = useState(null);
+    const [quiz, setQuiz] = useState(null);  // Quiz to dane quizu
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [quizTitle, setQuizTitle] = useState("");
+    const [quizTags, setQuizTags] = useState([]);
+    const [quizId, setQuizId] = useState(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await axiosInstance.get("/quiz");
-                console.log(response.data);
+                const response = await axiosInstance.get("/questions");
+                console.log('Dane z API:', response.data);
                 setQuiz(response.data);
                 setLoading(false);
             } catch (error) {
@@ -22,6 +25,28 @@ function QuizPage() {
             }
         };
 
+        const fetchQuizTitle = async () => {
+            try {
+                const response = await axiosInstance.get("/title");
+                setQuizTitle(response.data);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        const fetchQuizTags = async () => {
+            try {
+                const response = await axiosInstance.get("/tags");
+                setQuizTags(response.data);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchQuizTags();
+        fetchQuizTitle();
         fetchQuiz();
     }, []);
 
@@ -33,9 +58,9 @@ function QuizPage() {
         return <div>Error: {error.message}</div>;
     }
 
-    if (!quiz) {
-        return <div>No quiz available.</div>;
-    }
+    const quizTagsShow = quizTags ? quizTags.join(', ') : 'No tags available';
+
+
 
     return (
         <div className="flex flex-col h-screen">
@@ -45,10 +70,12 @@ function QuizPage() {
 
             <div className="flex-grow overflow-y-auto">
                 <div className="flex flex-col items-center space-y-4 p-4">
-                    <h2>{quiz.title}</h2>
-                    <p>Tags: {quiz.tags.join(', ')}</p>
+                    <div className="flex flex-col items-center">
+                        <h1 className="font-bold text-2xl">{quizTitle}</h1>
+                        <h2>Tags: {quizTagsShow}</h2>
+                    </div>
 
-                    {quiz.questions.map((question, index) => (
+                    {quiz.map((question, index) => (
                         <QuestionCard
                             key={index}
                             title={question.title}
