@@ -30,10 +30,6 @@ public class QuizService {
         quizRepository.save(quiz);
     }
 
-    public Optional<Quiz> getQuiz(Long id) {
-
-        return quizRepository.findById(id);
-    }
     public Optional<Quiz> getQuizById(Long id) {
         return quizRepository.findById(id);
     }
