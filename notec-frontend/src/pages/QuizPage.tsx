@@ -14,6 +14,7 @@ function QuizPage() {
     const [quizTitle, setQuizTitle] = useState("");
     const [quizTags, setQuizTags] = useState([]);
     const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [score, setScore] = useState<number|null>(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -40,14 +41,18 @@ function QuizPage() {
         }));
     };
 
-    const handleSubmit = async () => {
-        try {
-            const response = await axiosInstance.post(`/api/v1/quiz/${id}/submit`, selectedAnswers);
-            alert('Quiz submitted successfully!');
-        } catch (error) {
-            console.error('Error submitting quiz:', error);
-            alert('There was an error submitting your quiz.');
-        }
+    const handleSubmit = () => {
+        let correctAnswersCount = 0;
+
+        quiz.forEach((question) => {
+            if (selectedAnswers[question.id] === question.correctAnswer) {
+                correctAnswersCount++;
+            }
+        });
+
+        const totalQuestions = quiz.length;
+        const score = Math.round((correctAnswersCount / totalQuestions) * 100);
+        setScore(score);
     };
 
     if (loading) {
@@ -78,9 +83,9 @@ function QuizPage() {
                             <QuestionCard
                                 key={question.id}
                                 title={question.question}
-                                options={[question.answer1, question.answer2, question.answer3, question.answer4]} // Przekazanie odpowiedzi
-                                selectedOption={selectedAnswers[question.id]} // Zaznaczona odpowiedź
-                                onSelectOption={(option) => handleAnswerSelection(question.id, option)} // Obsługa wyboru odpowiedzi
+                                options={[question.answer1, question.answer2, question.answer3, question.answer4]}
+                                selectedOption={selectedAnswers[question.id]}
+                                onSelectOption={(option) => handleAnswerSelection(question.id, option)}
                             />
                         ))
                     ) : (
@@ -103,6 +108,12 @@ function QuizPage() {
                     >
                         Submit Quiz
                     </Button>
+
+                    {score !== null && (
+                        <div className="mt-4">
+                            <h3>Your score: {score}%</h3>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
