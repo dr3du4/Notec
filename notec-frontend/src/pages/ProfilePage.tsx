@@ -80,13 +80,13 @@ const ProfilePage = () => {
                 />
 
                 <div className="flex flex-col text-md">
-                  <h2 className="text-3xl font-bold mb-4">{`${firstName} ${lastName}`}</h2>
-                  <div className="mb-2">
-                    <FaTrophy className="text-lg inline mr-1 text-yellow-400" />
+                  <h2 className="text-4xl font-bold mb-4">{`${firstName} ${lastName}`}</h2>
+                  <div className="mb-2 text-lg">
+                    <FaTrophy className="inline mr-1 text-yellow-400" />
                     {rank}
                   </div>
-                  <div className="mb-2">
-                    <FaStar className="text-lg inline mr-1 text-yellow-400" />
+                  <div className="mb-2 text-lg">
+                    <FaStar className="inline mr-1 text-yellow-400" />
                     {points}
                   </div>
                 </div>
