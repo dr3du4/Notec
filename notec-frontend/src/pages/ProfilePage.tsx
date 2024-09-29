@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaTrophy } from "react-icons/fa";
 import Spinner from "../components/Spinner.tsx";
 import { useParams } from "react-router-dom";
-import catAvatar from "/catAvatar.png";
 
 const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
