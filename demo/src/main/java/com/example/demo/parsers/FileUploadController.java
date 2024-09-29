@@ -1,5 +1,8 @@
 package com.example.demo.parsers;
 
+import com.example.demo.llmhandler.LLMService;
+import com.example.demo.quiz.Quiz;
+import com.example.demo.quiz.QuizService;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFShape;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -29,6 +32,12 @@ public class FileUploadController {
     @Autowired
     private PptxFileService pptxFileService;
 
+    @Autowired
+    private QuizService quizService;
+
+    @Autowired
+    private LLMService llmService;
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -55,6 +64,12 @@ public class FileUploadController {
 
             // Zapis treści do bazy danych
             textFileService.saveFileContent(content);
+
+            // Query LLM
+            String json_content = llmService.extractQuizJson(content);
+
+            // Deserialize json into Quiz object
+            Quiz quiz = quizService.createQuiz(json_content);
 
             return ResponseEntity.ok("Plik został pomyślnie zapisany do bazy danych");
 

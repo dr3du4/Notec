@@ -30,6 +30,10 @@ public class QuizService {
         quizRepository.save(quiz);
     }
 
+    public Quiz createQuiz(String jsonText) {
+        return quizRepository.save(new Quiz(jsonText));
+    }
+
     public Optional<Quiz> getQuizById(Long id) {
         return quizRepository.findById(id);
     }
