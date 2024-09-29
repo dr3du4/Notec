@@ -1,250 +1,218 @@
 {
-  "user": [
+  "id": 1,
+  "title": "Quantum Machine Learning Quiz",
+  "questions": [
     {
-      "id": 1,
-      "firstName": "Jan",
-      "lastName": "Testowy",
-      "email": "jan@test.com",
-      "password": "testPass",
-      "points": 146,
-      "rank": "diamond",
-      "avatarUrl": "test.png",
-      "cursors": ["classic"],
-      "frames": ["classic"],
-      "currentCursor": "classic",
-      "currentFrame": "classic"
+      "title": "What is Quantum ML?",
+      "options": [
+        {
+          "option": "Integration of quantum mechanics with machine learning",
+          "correct": true
+        },
+        {
+          "option": "Type of quantum computer",
+          "correct": false
+        },
+        {
+          "option": "New programming technique",
+          "correct": false
+        },
+        {
+          "option": "Artificial intelligence based on quantum mechanics",
+          "correct": false
+        }
+      ]
     },
     {
-      "id": 2,
-      "firstName": "Krzys",
-      "lastName": "Testowy2",
-      "email": "krzys@test.com",
-      "password": "testPass",
-      "points": 25,
-      "rank": "silver",
-      "avatarUrl": "test.png",
-      "cursors": ["classic"],
-      "frames": ["classic"],
-      "currentCursor": "classic",
-      "currentFrame": "classic"
+      "title": "What is the application of associative memories in machine learning?",
+      "options": [
+        {
+          "option": "Pattern recognition",
+          "correct": true
+        },
+        {
+          "option": "Data encryption",
+          "correct": false
+        },
+        {
+          "option": "Random number generation",
+          "correct": false
+        },
+        {
+          "option": "Task optimization",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is amplitude encoding?",
+      "options": [
+        {
+          "option": "Method of storing data in a quantum state",
+          "correct": true
+        },
+        {
+          "option": "Machine learning technique",
+          "correct": false
+        },
+        {
+          "option": "Data compression technique",
+          "correct": false
+        },
+        {
+          "option": "Task optimization algorithm",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is the application of the HHL algorithm in machine learning?",
+      "options": [
+        {
+          "option": "Solving systems of linear equations",
+          "correct": true
+        },
+        {
+          "option": "Generating random numbers",
+          "correct": false
+        },
+        {
+          "option": "Function optimization",
+          "correct": false
+        },
+        {
+          "option": "Image recognition",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is a quantum computer?",
+      "options": [
+        {
+          "option": "Type of computer using quantum mechanics",
+          "correct": true
+        },
+        {
+          "option": "New data storage technology",
+          "correct": false
+        },
+        {
+          "option": "Type of processor",
+          "correct": false
+        },
+        {
+          "option": "Type of artificial intelligence",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is the application of quantum mechanics in machine learning?",
+      "options": [
+        {
+          "option": "Simulation of physical processes",
+          "correct": false
+        },
+        {
+          "option": "Data processing",
+          "correct": true
+        },
+        {
+          "option": "Algorithm optimization",
+          "correct": false
+        },
+        {
+          "option": "Pattern recognition",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is an associative memory?",
+      "options": [
+        {
+          "option": "Type of RAM",
+          "correct": false
+        },
+        {
+          "option": "Database type",
+          "correct": false
+        },
+        {
+          "option": "Data storage device",
+          "correct": false
+        },
+        {
+          "option": "Pattern recognition mechanism",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "title": "What is the application of amplitude encoding in machine learning?",
+      "options": [
+        {
+          "option": "Data compression",
+          "correct": false
+        },
+        {
+          "option": "Information storage",
+          "correct": true
+        },
+        {
+          "option": "Random number generation",
+          "correct": false
+        },
+        {
+          "option": "Task optimization",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "title": "What is the HHL algorithm?",
+      "options": [
+        {
+          "option": "Machine learning algorithm",
+          "correct": false
+        },
+        {
+          "option": "Data encoding method",
+          "correct": false
+        },
+        {
+          "option": "Task optimization technique",
+          "correct": false
+        },
+        {
+          "option": "Solving systems of linear equations algorithm",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "title": "What is the application of quantum mechanics in machine learning?",
+      "options": [
+        {
+          "option": "Simulation of physical processes",
+          "correct": false
+        },
+        {
+          "option": "Data processing",
+          "correct": true
+        },
+        {
+          "option": "Algorithm optimization",
+          "correct": false
+        },
+        {
+          "option": "Pattern recognition",
+          "correct": false
+        }
+      ]
     }
   ],
-  "quiz": {
-    "id": 1,
-    "title": "Quiz testowy",
-    "questions": [
-      {
-        "title": "Pytanie testowe 1",
-        "options": [
-          {
-            "option": "a",
-            "correct": true
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": false
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "title": "Pytanie testowe 2",
-        "options": [
-          {
-            "option": "a",
-            "correct": false
-          },
-          {
-            "option": "b",
-            "correct": false
-          },
-          {
-            "option": "c",
-            "correct": true
-          },
-          {
-            "option": "d",
-            "correct": false
-          }
-        ]
-      }
-    ],
-    "userId": 1,
-    "tags": ["it", "biology"]
-  }
+  "id_profilu": 1,
+  "tags": []
 }
