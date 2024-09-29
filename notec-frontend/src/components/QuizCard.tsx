@@ -1,16 +1,18 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {CardActionArea} from "@mui/material";
+import { CardActionArea } from "@mui/material";
 
-function QuizCard({id, title, tags}) {
+function QuizCard({ id, title, tags, onClick }) {
     return (
-        <Card sx={{ maxWidth: '80vw', width: '80vw', minHeight: '8rem', maxHeight: '10rem' }}>
+        <Card sx={{ maxWidth: '80vw', width: '80vw', minHeight: '8rem', maxHeight: '10rem' }} onClick={onClick}>
             <CardActionArea>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography variant="h6">
+                        Quiz ID: {id}
+                    </Typography>
+                    <Typography gutterBottom variant="h5">
                         {title}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>

@@ -26,7 +26,7 @@ function App() {
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
-          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/quiz/:id" element={<QuizPage />} />
       </Route>,
     ),
   );

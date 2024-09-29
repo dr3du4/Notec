@@ -3,44 +3,34 @@ import NavBar from "../components/NavBar.tsx";
 import QuizCard from "../components/QuizCard.tsx";
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosConfig.js";
-
+import {useEffect, useState} from "react";
 
 function HomePage() {
-
     const navigate = useNavigate();
     const [error, setError] = useState(null);
-    const [title, setTitle] = useState(null);
-    const [quizTags, setQuizTags] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
 
     useEffect(() => {
-        const fetchQuizTitle = async () => {
+        const fetchQuizzes = async () => {
             try {
-                const response = await axiosInstance.get("/title");
-                setTitle(response.data);
-
-            } catch (error) {
-                setError(error);
-            }
-        };
-
-        const fetchQuizTags = async () => {
-            try {
-                const response = await axiosInstance.get("/tags");
-                setQuizTags(response.data);
+                const response = await axiosInstance.get("/api/v1/quiz/all");
+                setQuizzes(response.data);
             } catch (error) {
                 setError(error);
             }
         }
 
-        fetchQuizTags();
-        fetchQuizTitle();
+        fetchQuizzes();
     }, []);
 
     const handleAddQuiz = () => {
-        navigate('/create-quiz')
+        navigate('/create-quiz');
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
     }
 
     return (
@@ -50,7 +40,15 @@ function HomePage() {
             </div>
             <div className="flex-grow overflow-y-auto">
                 <div className="flex flex-col items-center space-y-4 p-4">
-                    <QuizCard title={title} tags={quizTags}/>
+                    {quizzes.map((quiz) => (
+                        <QuizCard
+                            key={quiz.id}
+                            id={quiz.id}
+                            title={quiz.title}
+                            tags={quiz.tags}
+                            onClick={() => navigate(`/quiz/${quiz.id}`)}
+                        />
+                    ))}
                 </div>
             </div>
 
@@ -63,9 +61,8 @@ function HomePage() {
                     right: 32,
                 }}
             >
-                <AddIcon style={{fontSize: 64, color: "#FFC242"}} />
+                <AddIcon style={{ fontSize: 64, color: "#FFC242" }} />
             </IconButton>
-
         </div>
     );
 }

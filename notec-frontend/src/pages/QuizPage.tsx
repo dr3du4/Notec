@@ -2,22 +2,25 @@ import * as React from 'react';
 import NavBar from "../components/NavBar.tsx";
 import axiosInstance from "../axiosConfig.js";
 import QuestionCard from "../components/QuestionCard.tsx";
-import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import {useEffect, useState} from "react"; // Do pobrania ID z URL
 
 function QuizPage() {
-    const [quiz, setQuiz] = useState(null);  // Quiz to dane quizu
+    const { id } = useParams(); // Pobranie ID quizu z URL
+    const [quiz, setQuiz] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quizTitle, setQuizTitle] = useState("");
     const [quizTags, setQuizTags] = useState([]);
-    const [quizId, setQuizId] = useState(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await axiosInstance.get("/questions");
-                console.log('Dane z API:', response.data);
-                setQuiz(response.data);
+                const response = await axiosInstance.get(`/api/v1/quiz/${id}`); // Pobranie quizu na podstawie ID
+                const quizData = response.data;
+                setQuiz(quizData.questions); // Ustawienie pytań quizu
+                setQuizTitle(quizData.title); // Ustawienie tytułu
+                setQuizTags(quizData.tags); // Ustawienie tagów
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -25,30 +28,8 @@ function QuizPage() {
             }
         };
 
-        const fetchQuizTitle = async () => {
-            try {
-                const response = await axiosInstance.get("/title");
-                setQuizTitle(response.data);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        const fetchQuizTags = async () => {
-            try {
-                const response = await axiosInstance.get("/tags");
-                setQuizTags(response.data);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchQuizTags();
-        fetchQuizTitle();
         fetchQuiz();
-    }, []);
+    }, [id]); // Uruchamianie, gdy zmienia się ID
 
     if (loading) {
         return <div>Loading...</div>;
@@ -58,9 +39,7 @@ function QuizPage() {
         return <div>Error: {error.message}</div>;
     }
 
-    const quizTagsShow = quizTags ? quizTags.join(', ') : 'No tags available';
-
-
+    const quizTagsShow = quizTags.length > 0 ? quizTags.join(', ') : 'No tags available';
 
     return (
         <div className="flex flex-col h-screen">
