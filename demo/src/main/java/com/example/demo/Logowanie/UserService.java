@@ -15,16 +15,22 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User register(RegisterRequest registerRequest) {
-        User user = new User();
-        user.setFirstName(registerRequest.getFirstName());
-        user.setLastName(registerRequest.getLastName());
-        user.setEmail(registerRequest.getEmail());
-        user.setPassword(registerRequest.getPassword());
-        user.setPoints(0); // Domyślnie 0 punktów
-        user.setRank("beginner"); // Domyślna ranga
-        System.out.println(user);
-        return userRepository.save(user);
+    public User register(User registerRequest) {
+//        User user = new User();
+
+//        user.setFirstName(registerRequest.getFirstName());
+//        user.setLastName(registerRequest.getLastName());
+//        user.setEmail(registerRequest.getEmail());
+//        user.setPassword(registerRequest.getPassword());
+//        user.setPoints(0); // Domyślnie 0 punktów
+//        user.setRank("beginner"); // Domyślna ranga
+//        user.setCurrentCursor("");
+//        user.setCurrentFrame("");
+
+//        registerRequest.setCurrentCursor("");
+//        registerRequest.setCurrentFrame("");
+        System.out.println(registerRequest);
+        return userRepository.save(registerRequest);
     }
 
     public Optional<User> login(LoginRequest loginRequest) {

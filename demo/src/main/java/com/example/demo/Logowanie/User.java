@@ -15,11 +15,11 @@ public class User {
 
     private String lastName;
 
-    private int points;
+    private int points = 0;
 
-    private String rank;
+    private String rank = "beginner";
 
-    private String imageUrl;
+    private String imageUrl = "";
 
     private String email;
 
@@ -31,9 +31,9 @@ public class User {
     @ElementCollection
     private List<String> frames;
 
-    private String currentFrame;  // Current frame selected by the user
+    private String currentFrame = "";  // Current frame selected by the user
 
-    private String currentCursor;  // Current cursor selected by the user
+    private String currentCursor = "";  // Current cursor selected by the user
 
     // Constructor with arguments
     public User(String firstName, String lastName, int points, String rank, String imageUrl, String email, String password, List<String> cursors, List<String> frames, String currentFrame, String currentCursor) {
