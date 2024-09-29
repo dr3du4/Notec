@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/quiz")
+@RequestMapping("api/quiz")
 public class QuizController {
 
     private final QuizService quizService;
@@ -40,6 +40,10 @@ public class QuizController {
         return quiz.map(q -> {
             return ResponseEntity.ok(q);
         }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @GetMapping("/public")
+    public List<Quiz> getPublicQuizzes() {
+        return quizService.getPublicQuizzes();
     }
 }
 
