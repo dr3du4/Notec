@@ -1,51 +1,74 @@
 package com.example.demo.quiz;
 
+import com.example.demo.quiz.Question;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.persistence.GenerationType;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import com.example.demo.question.Question;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
+import java.lang.reflect.Array;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
-@Table
+@Table(name = "quizzes")
+
 public class Quiz {
 
+    @Setter
+    @Getter
     @Id
-    @SequenceGenerator(
-            name = "quiz_sequence",
-            sequenceName = "quiz_sequence",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "quiz_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
+    @JsonProperty("questions")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(columnDefinition = "json")
+    private List<Question> questions;
+
+    @Column(name = "profile_id")
     private Long profileId;
 
-    @OneToMany
-    private List<Question> questions;
-    private Long correctAnswerIndex;
-    public Quiz() {}
+    @ElementCollection
+    private List<String> tags;
 
-    public Quiz(String title, List<Question> questions, Long profileId) {
+    // Gettery i settery
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
         this.profileId = profileId;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
 
