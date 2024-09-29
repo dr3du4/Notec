@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +11,7 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newUser = {
@@ -19,9 +21,17 @@ const RegisterPage = () => {
       password,
     };
 
-    console.log(newUser);
-
-    navigate("/login");
+    await axios
+      .post("http://localhost:8080/auth/register", newUser)
+      .then((res) => {
+        console.log(res);
+        toast.success("Account created!");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong!");
+      });
   };
 
   return (
