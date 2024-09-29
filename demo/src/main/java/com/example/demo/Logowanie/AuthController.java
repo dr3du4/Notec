@@ -8,7 +8,7 @@ import java.io.Console;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/auth", method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value = "/auth")
 public class AuthController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class AuthController {
             LoginResponse response = new LoginResponse("login successfully", userId);
             return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body(new LoginResponse("niDDASsSDADer", null));
+            return ResponseEntity.status(401).body(new LoginResponse("Invalid credentials", null));
         }
     }
     @GetMapping("/getUser")

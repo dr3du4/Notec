@@ -1,10 +1,8 @@
 package com.example.demo.quiz;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +31,15 @@ public class QuizController {
     @GetMapping
     public Optional<Quiz> getQuiz(@RequestParam(required = true) Long id) {
         return quizService.getQuiz(id);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Quiz> getQuizById(@PathVariable("id") Long id) {
+        Optional<Quiz> quiz = quizService.getQuizById(id);
+        return quiz.map(q -> {
+            return ResponseEntity.ok(q);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
 
