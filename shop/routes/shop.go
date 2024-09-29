@@ -20,7 +20,7 @@ type Icon struct {
 }
 
 type ResponseGetShopItems struct {
-	Frames []Frame `json:"frames"`
+	Trees []Frame `json:"trees"`
 	Icons  []Icon  `json:"icons"`
 }
 
@@ -72,7 +72,7 @@ func GetShopItemsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	response := ResponseGetShopItems{
-		Frames: getFrames(),
+		Trees: getFrames(),
 		Icons:  getIcons(),
 	}
 

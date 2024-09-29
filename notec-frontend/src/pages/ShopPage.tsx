@@ -49,7 +49,7 @@ function RecursiveGrid({ items }: { items: any[] }) {
             >
                 <ItemCard
                     title={first.context || first.name}
-                    image={`/${first.name}.png`}
+                    image={`/${first.name || first.context}.png`}
                     price={first.price}
                     onClick={() => onClickItem(first.name, first.price)} // Przekazanie danych do modala
                     setOpen={setOpen}
@@ -76,7 +76,7 @@ function ShopPage() {
             try {
                 const response = await axios.get("http://localhost:8000/shop");
                 const data = response.data;
-                setFrames(data.frames);
+                setFrames(data.trees);
                 setIcons(data.icons);
                 setLoading(false);
             } catch (error) {
@@ -103,7 +103,7 @@ function ShopPage() {
             </div>
             <div className="flex-grow overflow-y-auto">
                 <Container>
-                    <h1 style={{ textAlign: 'center', fontSize: '3rem', marginBottom: '2rem' }}>Frames</h1>
+                    <h1 style={{ textAlign: 'center', fontSize: '3rem', marginBottom: '2rem' }}>Trees</h1>
                     <Grid2 container spacing={4} justifyContent="center" alignItems="center">
                         <RecursiveGrid items={frames} />
                     </Grid2>
