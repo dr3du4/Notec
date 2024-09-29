@@ -9,9 +9,6 @@ function QuizCard({ id, title, tags, onClick }) {
         <Card sx={{ maxWidth: '80vw', width: '80vw', minHeight: '8rem', maxHeight: '10rem' }} onClick={onClick}>
             <CardActionArea>
                 <CardContent>
-                    <Typography variant="h6">
-                        Quiz ID: {id}
-                    </Typography>
                     <Typography gutterBottom variant="h5">
                         {title}
                     </Typography>
