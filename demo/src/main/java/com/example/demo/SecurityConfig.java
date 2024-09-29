@@ -26,8 +26,8 @@ public class SecurityConfig {
                 .csrf().disable() // Disable CSRF for simplicity; consider enabling it in production
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/auth/register", "/auth/login").permitAll() // Allow access without authentication
-                        .requestMatchers("/auth/getUser/**").authenticated() // Requires authentication
-                        .anyRequest().authenticated() // All other requests need to be authenticated
+                        .requestMatchers("/auth/getUser/**").permitAll() // Requires authentication
+                        .anyRequest().permitAll() // All other requests need to be authenticated
                 )
                 .formLogin().disable()
                 .logout(logout -> logout
