@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Typography from "@mui/material/Typography";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,27 @@ const LoginPage = () => {
             </Link>
           </p>
         </div>
-        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
+        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg flex flex-col justify-center items-center p-10">
+          <img src="/lemur1.png" alt="lemur-logo" />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontSize: "3rem",
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            NoteC
+          </Typography>
+        </div>
         <div className="bg-gray-200 px-8 py-32 w-1/2 rounded-r-lg">
           <form onSubmit={handleSubmit} className="flex flex-col">
             <h2 className="text-3xl font-semibold mb-4">Login</h2>

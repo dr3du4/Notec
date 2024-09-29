@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaTrophy } from "react-icons/fa";
 import Spinner from "../components/Spinner.tsx";
 import { useParams } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -66,7 +67,27 @@ const ProfilePage = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="container m-auto max-w-6xl flex">
-        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg"></div>
+        <div className="float w-1/2 bg-custom-purple-dark rounded-l-lg flex flex-col justify-center items-center p-10">
+          <img src="/lemur1.png" alt="lemur-logo" />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontSize: "3rem",
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            NoteC
+          </Typography>
+        </div>
         <div className="flex flex-col bg-gray-200 px-8 py-8 rounded-r-lg w-1/2">
           {loading ? (
             <Spinner loading={loading} />
