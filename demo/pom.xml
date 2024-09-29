@@ -97,6 +97,12 @@
 			<version>5.2.3</version>
 		</dependency>
 
+		<!-- Json parsing -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20240303</version>
+		</dependency>
 		<!-- Spring Boot Testing dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
