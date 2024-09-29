@@ -28,12 +28,6 @@ public class QuizController {
         return Optional.ofNullable(quizService.getQuizes());
     }
 
-    @GetMapping
-    public Optional<Quiz> getQuiz(@RequestParam(required = true) Long id) {
-        return quizService.getQuiz(id);
-    }
-
-
     @GetMapping("/{id}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable("id") Long id) {
         Optional<Quiz> quiz = quizService.getQuizById(id);

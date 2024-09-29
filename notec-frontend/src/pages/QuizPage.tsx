@@ -2,22 +2,28 @@ import * as React from 'react';
 import NavBar from "../components/NavBar.tsx";
 import axiosInstance from "../axiosConfig.js";
 import QuestionCard from "../components/QuestionCard.tsx";
+import { useParams } from "react-router-dom";
+import Button from '@mui/material/Button';
 import {useEffect, useState} from "react";
 
 function QuizPage() {
-    const [quiz, setQuiz] = useState(null);  // Quiz to dane quizu
+    const { id } = useParams();
+    const [quiz, setQuiz] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quizTitle, setQuizTitle] = useState("");
     const [quizTags, setQuizTags] = useState([]);
-    const [quizId, setQuizId] = useState(null);
+    const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [score, setScore] = useState<number|null>(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await axiosInstance.get("/questions");
-                console.log('Dane z API:', response.data);
-                setQuiz(response.data);
+                const response = await axiosInstance.get(`/api/v1/quiz/${id}`);
+                const quizData = response.data;
+                setQuiz(quizData.questions);
+                setQuizTitle(quizData.title);
+                setQuizTags(quizData.tags);
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -25,30 +31,29 @@ function QuizPage() {
             }
         };
 
-        const fetchQuizTitle = async () => {
-            try {
-                const response = await axiosInstance.get("/title");
-                setQuizTitle(response.data);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        const fetchQuizTags = async () => {
-            try {
-                const response = await axiosInstance.get("/tags");
-                setQuizTags(response.data);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchQuizTags();
-        fetchQuizTitle();
         fetchQuiz();
-    }, []);
+    }, [id]);
+
+    const handleAnswerSelection = (questionId, selectedOption) => {
+        setSelectedAnswers(prev => ({
+            ...prev,
+            [questionId]: selectedOption
+        }));
+    };
+
+    const handleSubmit = () => {
+        let correctAnswersCount = 0;
+
+        quiz.forEach((question) => {
+            if (selectedAnswers[question.id] === question.correctAnswer) {
+                correctAnswersCount++;
+            }
+        });
+
+        const totalQuestions = quiz.length;
+        const score = Math.round((correctAnswersCount / totalQuestions) * 100);
+        setScore(score);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -58,9 +63,7 @@ function QuizPage() {
         return <div>Error: {error.message}</div>;
     }
 
-    const quizTagsShow = quizTags ? quizTags.join(', ') : 'No tags available';
-
-
+    const quizTagsShow = quizTags.length > 0 ? quizTags.join(', ') : 'No tags available';
 
     return (
         <div className="flex flex-col h-screen">
@@ -75,13 +78,42 @@ function QuizPage() {
                         <h2>Tags: {quizTagsShow}</h2>
                     </div>
 
-                    {quiz.map((question, index) => (
-                        <QuestionCard
-                            key={index}
-                            title={question.title}
-                            options={question.options}
-                        />
-                    ))}
+                    {quiz && quiz.length > 0 ? (
+                        quiz.map((question) => (
+                            <QuestionCard
+                                key={question.id}
+                                title={question.question}
+                                options={[question.answer1, question.answer2, question.answer3, question.answer4]}
+                                selectedOption={selectedAnswers[question.id]}
+                                onSelectOption={(option) => handleAnswerSelection(question.id, option)}
+                            />
+                        ))
+                    ) : (
+                        <p>No questions available</p>
+                    )}
+
+                    <Button
+                        onClick={handleSubmit}
+                        sx={{
+                            backgroundColor: '#FFC242',
+                            color: 'black',
+                            '&:hover': {
+                                backgroundColor: '#FFA726',
+                            },
+                            mt: 4,
+                            px: 4,
+                            py: 2,
+                        }}
+                        variant="contained"
+                    >
+                        Submit Quiz
+                    </Button>
+
+                    {score !== null && (
+                        <div className="mt-4">
+                            <h3>Your score: {score}%</h3>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
