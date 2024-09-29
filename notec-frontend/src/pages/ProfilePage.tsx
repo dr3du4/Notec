@@ -21,12 +21,10 @@ const ProfilePage = () => {
 
   const [password, setPassword] = useState("");
 
-  console.log(avatarUrl);
-
   useEffect(() => {
     const fetchUser = async () => {
       await axios
-        .get(`http://localhost:8000/user/${id}`)
+        .get(`http://localhost:8080/auth/getUser/${id}`)
         .then((res) => {
           const data = res.data;
 
@@ -37,7 +35,7 @@ const ProfilePage = () => {
           setLastName(data.lastName);
           setRank(data.rank);
           setPoints(data.points);
-          setAvatarUrl(data.avatarUrl);
+          setAvatarUrl(data.imageUrl);
         })
         .catch((error) => {
           console.log("Error fetching user", error);
@@ -77,7 +75,7 @@ const ProfilePage = () => {
             <>
               <div className="w-full flex">
                 <img
-                  src={catAvatar}
+                  src={avatarUrl}
                   alt="User Avatar"
                   className="rounded-full border-4 border-gray-500 w-52 h-52 mb-4 mr-4"
                 />
