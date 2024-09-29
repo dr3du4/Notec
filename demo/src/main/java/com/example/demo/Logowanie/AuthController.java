@@ -14,7 +14,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
         System.out.println(registerRequest);
         try {
@@ -25,7 +25,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         System.out.println(loginRequest.email);
         System.out.println(loginRequest.password);
@@ -33,19 +33,20 @@ public class AuthController {
         System.out.println(user);
         if (user.isPresent()) {
             Long userId = user.get().getId();
-            LoginResponse response = new LoginResponse("login successfully", userId);
+            LoginResponse response = new LoginResponse("Login successful", userId);
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(401).body(new LoginResponse("Invalid credentials", null));
         }
     }
-    @GetMapping("/getUser")
-    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         try {
             User user = userService.getUserById(id);
-            return ResponseEntity.ok(user); // Zwraca kod 200 (OK) oraz dane użytkownika
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
-            return ResponseEntity.status(404).build(); // Zwraca kod 404 (Not Found), gdy użytkownik nie istnieje
+            return ResponseEntity.status(404).build();
         }
     }
 }

@@ -6,37 +6,51 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.stereotype.Component;
 
+
+import java.util.List;
 
 @Component
 @EnableWebSecurity
 public class SecurityConfig {
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors() // Enable CORS
+                .and()
+                .csrf().disable() // Disable CSRF for simplicity; consider enabling it in production
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/register").hasAnyRole("admin", "user")
-                        .requestMatchers("/auth/login").hasAnyRole("admin", "user")
-                        .requestMatchers("/auth//getUser").hasAnyRole("admin", "user")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Allow access without authentication
+                        .requestMatchers("/auth/getUser/**").authenticated() // Requires authentication
+                        .anyRequest().authenticated() // All other requests need to be authenticated
                 )
-                .formLogin(form -> form
-                        .loginPage("/auth/login")
-                        .loginPage("/auth/register")
-                        .loginPage("/auth//getUser")
-                        .permitAll()
-                )
+                .formLogin().disable()
                 .logout(logout -> logout
                         .permitAll());
 
         return http.build();
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // CORS configuration bean
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:3000")); // Allow your React app
+        config.setAllowedHeaders(List.of("*")); // Allow all headers
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow all HTTP methods
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
