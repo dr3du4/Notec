@@ -68,4 +68,18 @@ public class UserService {
         // Throw exception or return null if user not found
         throw new RuntimeException("User not found with ID: " + id);
     }
+
+    public boolean updateUserPoints(Long userId, int pointsToAdd) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            int newPoints = user.getPoints() + pointsToAdd;
+            user.setPoints(newPoints);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

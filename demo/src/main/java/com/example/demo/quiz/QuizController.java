@@ -1,5 +1,7 @@
 package com.example.demo.quiz;
 
+import com.example.demo.Logowanie.SubmitQuizRequest;
+import com.example.demo.Logowanie.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,14 @@ import java.util.Optional;
 public class QuizController {
 
     private final QuizService quizService;
+    private final UserService userService;
 
     @Autowired
-    public QuizController(QuizService quizService) {
-        this.quizService =  quizService;
+    public QuizController(QuizService quizService, UserService userService) {
+        this.quizService = quizService;
+        this.userService = userService;
     }
+
 
     @GetMapping("/user")
     public Optional<List<Quiz>> getProfileQuizes(@RequestParam(required = false) Long profileId) {
@@ -39,6 +44,28 @@ public class QuizController {
     public List<Quiz> getPublicQuizzes() {
         return quizService.getPublicQuizzes();
     }
+
+    @PostMapping("/{id}/submit")
+    public ResponseEntity<String> submitQuizResult(
+            @PathVariable("id") Long quizId,
+            @RequestBody SubmitQuizRequest submitQuizRequest) {
+
+        Long userId = submitQuizRequest.getUserId();
+        int correctAnswersCount = submitQuizRequest.getCorrectAnswersCount();
+
+        System.out.println("UserId: " + userId);
+        System.out.println("Correct Answers Count: " + correctAnswersCount);
+
+        // Aktualizacja punktów użytkownika
+        boolean isUpdated = userService.updateUserPoints(userId, correctAnswersCount);
+
+        if (isUpdated) {
+            return ResponseEntity.ok("User points updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Error updating user points");
+        }
+    }
+
 }
 
 
