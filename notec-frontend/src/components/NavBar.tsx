@@ -56,7 +56,8 @@ function NavBar() {
     <AppBar position="static" sx={{ backgroundColor: "#72369D" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          {/*<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />*/}
+          <img src="/lemur1.png" alt="lemur-logo" className="w-16" />
           <Typography
             variant="h6"
             noWrap
@@ -72,7 +73,7 @@ function NavBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            NoteC
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
