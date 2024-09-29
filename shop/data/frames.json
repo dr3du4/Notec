@@ -1,17 +1,17 @@
 [
     {
   "id": "1",
-  "context": "default",
+  "context": "tree1",
   "price": 0
     },
     {
   "id": "2",
-  "context": "unusual",
+  "context": "tree2",
   "price": 1000
     },
     {
   "id": "3",
-  "context": "legendary",
+  "context": "tree3",
   "price": 10000
     }
 ]
