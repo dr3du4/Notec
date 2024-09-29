@@ -53,6 +53,8 @@ public class FileUploadController {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nieznany typ pliku: " + extension);
             }
 
+            content = content.replaceAll("\u0000", "");
+
             // Zapis treści do bazy danych
             textFileService.saveFileContent(content);
 
