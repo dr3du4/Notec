@@ -1,4 +1,4 @@
-package com.example.demo.question;
+package com.example.demo.quiz;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
