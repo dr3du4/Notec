@@ -37,6 +37,8 @@ public class Quiz {
     @ElementCollection
     private List<String> tags;
 
+    private  Boolean isPrivate;
+
     // Gettery i settery
 
     public String getTitle() {
@@ -69,6 +71,14 @@ public class Quiz {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 
 
