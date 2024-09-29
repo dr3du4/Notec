@@ -23,15 +23,35 @@ public class FileUploadController {
     @Autowired
     private TextFileService textFileService;
 
-    @PostMapping("/uploadTxt")
-    public ResponseEntity<String> uploadTxtFile(@RequestParam("file") MultipartFile file) {
+    @Autowired
+    private PdfFileService pdfFileService;
+
+    @Autowired
+    private PptxFileService pptxFileService;
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Proszę przesłać plik");
         }
 
         try {
+
+            // Determine file type
+            String filename = file.getOriginalFilename();
+            String extension = filename.substring(filename.lastIndexOf(".") + 1);
+            String content;
+
             // Odczyt pliku jako tekst
-            String content = new String(file.getBytes());
+            if (extension.equals("txt")) {
+                content = new String(file.getBytes());
+            } else if (extension.equals("pdf")) {
+                content = pdfFileService.extractContent(file);
+            } else if (extension.equals("pptx")) {
+                content = pptxFileService.extractContent(file);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nieznany typ pliku: " + extension);
+            }
 
             // Zapis treści do bazy danych
             textFileService.saveFileContent(content);
@@ -43,45 +63,5 @@ public class FileUploadController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Błąd podczas przetwarzania pliku");
         }
     }
-
-    @Autowired
-    private PdfFileService pdfFileService;
-
-    @PostMapping(path = "/uploadPdf")
-    public ResponseEntity<String> uploadPdfFile(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Proszę przesłać plik");
-        }
-        try {
-            String content = pdfFileService.extractContent(file);
-
-            textFileService.saveFileContent(content);
-
-            return ResponseEntity.ok("Plik został pomyślnie zapisany do bazy danych");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Błąd podczas przetwarzania pliku");
-        }
     }
-    @Autowired
-    private PptxFileService pptxFileService;
 
-    @PostMapping(path = "/uploadPptx")
-    public ResponseEntity<String> uploadPptxFile(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Proszę przesłać plik");
-        }
-        try {
-            String content = pptxFileService.extractContent(file);
-
-            textFileService.saveFileContent(content);
-
-            return ResponseEntity.ok("Plik został pomyślnie zapisany do bazy danych");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Błąd podczas przetwarzania pliku");
-        }
-    }
-}
