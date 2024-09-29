@@ -54,4 +54,18 @@ public class UserService {
             throw new RuntimeException("User with ID " + id + " not found");
         }
     }
+    public eq getUserEq(Long id) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            return new eq(
+                    user.getCursors(),
+                    user.getFrames(),
+                    user.getCurrentCursor(),
+                    user.getCurrentFrame()
+            );
+        }
+        // Throw exception or return null if user not found
+        throw new RuntimeException("User not found with ID: " + id);
+    }
 }

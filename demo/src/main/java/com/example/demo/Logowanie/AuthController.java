@@ -49,4 +49,11 @@ public class AuthController {
             return ResponseEntity.status(404).build();
         }
     }
+
+    @GetMapping("/getEq/{id}")
+    public eq getEqById(@PathVariable("id") Long id) {
+
+        return userService.getUserEq(id);
+
+    }
 }
