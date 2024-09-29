@@ -10,6 +10,7 @@ function QuizPage() {
     const [error, setError] = useState(null);
     const [quizTitle, setQuizTitle] = useState("");
     const [quizTags, setQuizTags] = useState([]);
+    const [quizId, setQuizId] = useState(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
