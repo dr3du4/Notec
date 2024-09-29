@@ -41,7 +41,7 @@ function QuizPage() {
         }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let correctAnswersCount = 0;
 
         quiz.forEach((question) => {
@@ -53,6 +53,18 @@ function QuizPage() {
         const totalQuestions = quiz.length;
         const score = Math.round((correctAnswersCount / totalQuestions) * 100);
         setScore(score);
+
+        try {
+            const response = await axiosInstance.post(`/api/v1/quiz/${id}/submit`, {
+                quizId: id,
+                userId: localStorage.getItem("userId"),
+                correctAnswersCount: correctAnswersCount,
+                totalQuestions: totalQuestions
+            });
+            console.log("Quiz result sent to backend:", response.data);
+        } catch (error) {
+            console.error("Error sending quiz result to backend:", error);
+        }
     };
 
     if (loading) {
