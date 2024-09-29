@@ -37,4 +37,7 @@ public class QuizService {
     public Optional<Quiz> getQuizById(Long id) {
         return quizRepository.findById(id);
     }
+    public List<Quiz> getPublicQuizzes() {
+        return quizRepository.findByIsPrivateFalse();
+    }
 }
