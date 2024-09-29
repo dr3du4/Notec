@@ -3,7 +3,7 @@ import Grid2 from '@mui/material/Grid2';
 import { Container } from '@mui/material';
 import NavBar from "../components/NavBar.tsx";
 import ItemCard from "../components/ItemCard.tsx";
-import axiosInstance from "../axiosConfig.js";
+import axios from "axios";
 import { MouseContext } from "../context/mouseContext.tsx";
 import ShopModal from "../components/ShopModal.tsx";
 import {useContext, useEffect, useState} from "react";
@@ -74,7 +74,7 @@ function ShopPage() {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const response = await axiosInstance.get("/shop");
+                const response = await axios.get("http://localhost:8000/shop");
                 const data = response.data;
                 setFrames(data.frames);
                 setIcons(data.icons);
